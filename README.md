@@ -1,367 +1,466 @@
-# STEP-Academy-Premium
-> 💎 موقع "دورة STEP الشاملة الحديثة" — مشروع طلابي سعودي يهدف لتوفير محتوى تفاعلي متكامل لاختبار STEP من مركز قياس. يشمل الموقع أدوات تفاعلية، نماذج حديثة، نظام تسجيل ذكي، ولوحة تعاون للمعلنين والمشاركين. التصميم مبني بأسلوب احترافي مع حركة ديناميكية ورسوميات متجاوبة تعكس الهوية التعليمية السعودية 🇸🇦
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>دورة STEP الشاملة الحديثة</title>
-
-<!-- خط احترافي -->
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>دورة STEP الشاملة الحديثة — طلب اشتراك</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-
 <style>
-:root{
-  --bg-1:#052d1e;
-  --bg-2:#083c2a;
-  --brand:#19c37d;
-  --brand-2:#0ea566;
-  --ink:#ecfdf5;
-  --muted:#a7f3d0;
-  --card:#0b3a2a;
-  --glass:rgba(255,255,255,.08);
-  --border:rgba(255,255,255,.12);
-  --warn:#f59e0b;
-  --accent:#22d3ee;
-}
+  :root{
+    --bg-1:#0e3d2b;           /* أخضر داكن */
+    --bg-2:#0b2b20;           /* أخضر أغمق */
+    --brand:#22c55e;          /* أخضر حديث */
+    --brand-2:#16a34a;
+    --gold:#f6c453;           /* ذهبي */
+    --text:#f8fafc;           /* أبيض مزرق */
+    --muted:#9fb3a6;
+    --card:#0f2f24cc;         /* نصف شفافية */
+    --glass:rgba(255,255,255,.06);
+    --shadow:0 12px 40px rgba(0,0,0,.35);
+  }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family:"Tajawal",system-ui,Segoe UI,Roboto,Arial;
-  color:var(--ink);
-  background: radial-gradient(1200px 600px at 85% -10%, #0d5c42 0%, transparent 60%),
-              radial-gradient(1200px 700px at -5% 110%, #0a4a37 0%, transparent 60%),
-              linear-gradient(135deg,var(--bg-1),var(--bg-2));
-  overflow-x:hidden;
-}
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:'Tajawal',system-ui,Segoe UI,Roboto,Arial;
+    color:var(--text);
+    overflow-x:hidden;
+    background: radial-gradient(1200px 700px at 10% -10%, #15664d 0%, transparent 60%),
+               radial-gradient(900px 600px at 110% 20%, #1a7f5f 0%, transparent 58%),
+               radial-gradient(800px 500px at -10% 120%, #134e3b 0%, transparent 55%),
+               linear-gradient(160deg, var(--bg-1), var(--bg-2));
+    animation:bgMove 18s ease-in-out infinite alternate;
+  }
+  @keyframes bgMove{
+    0%{background-position:0 0, 100% 0, 0 100%, 0 0}
+    100%{background-position:10% -5%, 92% 6%, -6% 108%, 0 0}
+  }
 
-/* خلفية متحركة فاخرة */
-.bg-anim{
-  position:fixed; inset:0; z-index:-1; pointer-events:none;
-}
-.bg-anim::before, .bg-anim::after{
-  content:"";
-  position:absolute; inset:-20%;
-  background:
-    radial-gradient(800px 500px at 15% 20%, rgba(25,195,125,.18), transparent 60%),
-    radial-gradient(700px 500px at 85% 80%, rgba(34,211,238,.12), transparent 60%);
-  filter:saturate(140%) blur(0.4px);
-  animation:pan 22s linear infinite;
-}
-.bg-anim::after{ animation-direction:reverse; opacity:.7 }
-@keyframes pan{ 
-  0%{transform:translate3d(0,0,0) rotate(0deg)}
-  50%{transform:translate3d(2%, -1%,0) rotate(1deg)}
-  100%{transform:translate3d(0,0,0) rotate(0deg)}
-}
+  /* علامة مائية متداخلة مع الخلفية */
+  .watermark{
+    position:fixed; inset:0; pointer-events:none; opacity:.07; mix-blend-mode:overlay;
+    background-image:
+      repeating-linear-gradient( 30deg,
+        transparent 0 140px,
+        rgba(255,255,255,.08) 140px 180px),
+      repeating-linear-gradient( -30deg,
+        transparent 0 140px,
+        rgba(255,255,255,.08) 140px 180px);
+  }
+  .watermark::after{
+    content:"STEP الشاملة الحديثة • STEP الشاملة الحديثة • ";
+    position:absolute; inset:0; text-align:center; line-height:240vh;
+    font-weight:800; font-size:8rem; letter-spacing:3px; color:#fff; opacity:.03;
+    white-space:nowrap; transform:rotate(-12deg);
+  }
 
-/* علامة مائية ناعمة */
-body::after{
-  content:"STEP • الدورة الشاملة الحديثة";
-  position:fixed; inset:auto 0 2rem 0; text-align:center;
-  letter-spacing:.15em; font-weight:700; font-size:12px;
-  opacity:.07; color:#d1fae5; pointer-events:none;
-}
+  header{
+    position:sticky; top:0; z-index:30;
+    backdrop-filter:saturate(1.2) blur(8px);
+    background:linear-gradient(180deg, rgba(15,48,36,.85), rgba(15,48,36,.35));
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .nav{
+    max-width:1100px; margin:auto; padding:14px 18px; display:flex; gap:14px; align-items:center; justify-content:space-between;
+  }
+  .logo{display:flex; gap:10px; align-items:center;}
+  .logo-badge{
+    width:46px;height:46px;border-radius:14px; display:grid; place-items:center;
+    background:linear-gradient(135deg, #1fa766, #0a6b48);
+    box-shadow:0 10px 24px rgba(0,0,0,.35), inset 0 0 0 2px rgba(255,255,255,.06);
+    font-weight:800; font-size:18px;
+  }
+  .logo h1{margin:0;font-size:18px;letter-spacing:.4px}
+  .price-chip{
+    display:inline-flex; align-items:center; gap:8px; font-weight:800;
+    background:linear-gradient(135deg, #fef3c7, #fde68a);
+    color:#0d1b13; padding:8px 12px; border-radius:999px; box-shadow:var(--shadow);
+  }
+  .price-chip small{opacity:.8; font-weight:700}
 
-/* حاويات */
-.container{width:min(1100px, 92%); margin-inline:auto}
-.section{padding:56px 0}
-.grid{display:grid; gap:22px}
-.grid-2{grid-template-columns: 1.1fr .9fr}
-@media (max-width:900px){ .grid-2{grid-template-columns:1fr} }
+  .wrap{max-width:1100px; margin:24px auto; padding:0 16px}
+  .hero{
+    display:grid; gap:16px; grid-template-columns:1.1fr .9fr; align-items:stretch;
+  }
+  @media(max-width:980px){ .hero{grid-template-columns:1fr} }
 
-/* بطاقات زجاجية */
-.card{
-  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  border:1px solid var(--border);
-  border-radius:20px; padding:22px; backdrop-filter: blur(8px);
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
-}
+  .card{
+    background:linear-gradient(180deg, var(--card), rgba(15,48,36,.45));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px; box-shadow:var(--shadow);
+  }
+  .card .pad{padding:22px}
 
-/* أزرار */
-.btn{
-  display:inline-flex; align-items:center; gap:10px;
-  background:linear-gradient(90deg, var(--brand), var(--brand-2));
-  color:#052016; border:none; padding:14px 18px; border-radius:14px;
-  font-weight:800; text-decoration:none; transition:.25s transform, .25s filter;
-}
-.btn:hover{ transform:translateY(-2px); filter:saturate(115%) }
+  .title{
+    font-size:32px; margin:0 0 8px; font-weight:800;
+  }
+  .subtitle{margin:0 0 16px; color:var(--muted); font-weight:500}
+  .features{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+  @media(max-width:620px){ .features{grid-template-columns:1fr} }
+  .feature{
+    background:var(--glass); border:1px solid rgba(255,255,255,.06);
+    padding:14px 16px; border-radius:16px; display:flex; gap:10px; align-items:flex-start;
+  }
+  .feature b{color:#eafff2}
+  .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
+  .btn{
+    appearance:none; border:none; cursor:pointer; font-family:inherit;
+    padding:12px 16px; border-radius:14px; font-weight:800; letter-spacing:.3px;
+    background:linear-gradient(135deg, var(--brand), var(--brand-2));
+    color:#07150f; box-shadow:0 10px 20px rgba(18,116,76,.45);
+    transition:.18s transform ease, .18s filter ease;
+  }
+  .btn:hover{transform:translateY(-2px) scale(1.01)}
+  .btn.ghost{
+    background:transparent; color:var(--text);
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:none;
+  }
 
-/* شارة ثقة */
-.badges{display:flex; flex-wrap:wrap; gap:10px}
-.badge{
-  background:rgba(25,195,125,.14);
-  border:1px solid rgba(25,195,125,.35);
-  color:#a7f3d0; padding:8px 12px; border-radius:12px; font-weight:700; font-size:13px
-}
+  /* نموذج الاشتراك */
+  form .grid{display:grid; gap:14px; grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media(max-width:640px){ form .grid{grid-template-columns:1fr} }
+  label{display:block; font-weight:700; margin-bottom:6px}
+  input[type="text"], input[type="email"], input[type="tel"], select, .pill-box{
+    width:100%; padding:12px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.04); color:var(--text); outline:0;
+  }
+  .hint{color:var(--muted); font-size:14px; margin-top:4px}
 
-/* بطل الصفحة */
-.hero{
-  padding-top:64px; padding-bottom:32px;
-}
-.kicker{
-  display:inline-flex; align-items:center; gap:8px;
-  font-weight:800; color:#a7f3d0; background:rgba(255,255,255,.06);
-  padding:8px 12px; border-radius:999px; border:1px solid var(--border);
-}
-.hero h1{
-  margin:16px 0 10px; line-height:1.15; font-size:clamp(28px, 5vw, 44px);
-  font-weight:800; letter-spacing:.2px;
-}
-.hero p.lead{color:#d1fae5; opacity:.92; font-size:18px; margin:0 0 16px}
+  /* حبوب اختيار الدرجة */
+  .pills{display:flex; flex-wrap:wrap; gap:8px}
+  .pill{
+    padding:10px 14px; border:1px solid rgba(255,255,255,.12);
+    border-radius:999px; cursor:pointer; user-select:none;
+    background:rgba(255,255,255,.03); font-weight:700;
+  }
+  .pill.active{background:linear-gradient(135deg,#fef3c7,#fde68a); color:#0f241a; border-color:#fcd34d}
 
-/* شريط السعر */
-.price{
-  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-  margin:18px 0
-}
-.price .tag{
-  background:#ecfccb; color:#064e3b; border-radius:12px; padding:6px 10px; font-weight:800
-}
-.price .old{ text-decoration:line-through; opacity:.6}
-.price .vat{ opacity:.8; font-size:13px}
+  /* إشعارات منبثقة */
+  .toast{
+    position:fixed; left:18px; bottom:18px; z-index:50; display:flex; flex-direction:column; gap:10px; max-width:92vw;
+  }
+  .bubble{
+    display:flex; gap:10px; align-items:center; background:#07251b; color:#dff7ec;
+    border:1px solid rgba(255,255,255,.08); padding:10px 12px; border-radius:12px;
+    box-shadow:var(--shadow); transform:translateX(-12px); opacity:0; animation:pop .35s ease forwards;
+  }
+  @keyframes pop{to{transform:translateX(0); opacity:1}}
+  .bubble b{color:#a7f3d0}
 
-/* أقسام الميزات */
-.features{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
-@media (max-width:900px){ .features{grid-template-columns:1fr} }
-.feature{ padding:18px; border-radius:16px; border:1px solid var(--border); background:var(--glass)}
-.feature h4{ margin:0 0 8px; font-size:18px }
-.feature p{ margin:0; color:#d1fae5; opacity:.92 }
-
-/* صندوق إشعارات محاكاة (واضحة أنها محاكاة) */
-.toast{
-  position:fixed; left:12px; bottom:12px; z-index:3;
-  display:flex; flex-direction:column; gap:8px; width:min(320px, 86vw);
-}
-.notice{
-  display:flex; gap:10px; align-items:center;
-  padding:10px 12px; border-radius:14px; background:rgba(255,255,255,.08);
-  border:1px solid var(--border); font-size:14px
-}
-.notice small{opacity:.7}
-.notice .dot{width:8px; height:8px; border-radius:999px; background:var(--brand)}
-
-/* نموذج التسجيل */
-.form{
-  display:grid; gap:14px
-}
-.field{ display:grid; gap:6px}
-label{font-weight:700; color:#d1fae5}
-input, select, textarea{
-  background:rgba(255,255,255,.06); color:#eafff5; border:1px solid var(--border);
-  border-radius:12px; padding:12px 12px; outline:none; font-family:inherit
-}
-textarea{ min-height:110px; resize:vertical }
-.hint{ font-size:12.5px; opacity:.8; color:#bbf7d0}
-
-/* فوتر */
-.footer{ text-align:center; padding:30px 0; opacity:.75; font-size:14px}
-
-/* فواصل قسم */
-.divider{
-  height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
-  margin:34px 0
-}
+  footer{margin:32px 0; color:#a8b8b1; text-align:center; font-size:14px}
+  footer .sep{opacity:.25; padding:0 6px}
 </style>
 </head>
 <body>
 
-<div class="bg-anim"></div>
+<div class="watermark"></div>
 
-<header class="section hero">
-  <div class="container grid grid-2">
-    <div class="card">
-      <span class="kicker">الدورة الشاملة الحديثة • STEP</span>
-      <h1>استعد للاختبار بثقة — محتوى مركّز، خطة واضحة، ونتيجة تصنع الفارق</h1>
-      <p class="lead">أول دورة مُحكمة تجمع خلاصة أقوى الدروس والنماذج المتكررة لآخر 5 سنوات، بأسلوب مبسّط يخلّصك من التشتت ويختصر وقتك.</p>
-
-      <div class="badges" style="margin:10px 0 4px">
-        <span class="badge">تحديثات مدى الحياة</span>
-        <span class="badge">نماذج متكررة + شروحات PDF</span>
-        <span class="badge">خطط مذاكرة مرنة</span>
-        <span class="badge">دعم عبر تيليجرام</span>
-      </div>
-
-      <div class="price">
-        <span class="tag">149 ر.س شامل الضريبة</span>
-        <span class="old">بدل 400 ر.س</span>
-        <span class="vat">رسوم لمرة واحدة • وصول دائم</span>
-      </div>
-
-      <div style="display:flex; gap:10px; flex-wrap:wrap">
-        <a class="btn" href="#enroll">سجّل الآن</a>
-        <a class="btn" style="background:linear-gradient(90deg,#22d3ee,#0891b2); color:#052016" href="https://studentservices241445-rgb.github.io/Hilm-STEP-Academy/">تعرّف على المحتوى</a>
-      </div>
-
-      <p class="hint" style="margin-top:10px">📌 تنبيه بخصوص التواريخ داخل بعض الملفات: هي مسميات وقت النشر فقط — نمط اختبار STEP متكرر، والتركيز على طريقة الحل والتدرب على النماذج.</p>
+<header>
+  <div class="nav">
+    <div class="logo">
+      <div class="logo-badge">STEP</div>
+      <h1>الدورة الشاملة الحديثة</h1>
     </div>
-
-    <div class="card">
-      <img alt="Mock" src="data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='520'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%230fd6a0'/%3E%3Cstop stop-color='%2307b278' offset='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' rx='24' fill='%230b3a2a'/%3E%3Crect x='24' y='24' width='752' height='120' rx='18' fill='url(%23g)'/%3E%3Crect x='24' y='164' width='360' height='120' rx='14' fill='rgba(255,255,255,0.1)'/%3E%3Crect x='416' y='164' width='360' height='120' rx='14' fill='rgba(255,255,255,0.1)'/%3E%3Crect x='24' y='304' width='360' height='120' rx='14' fill='rgba(255,255,255,0.1)'/%3E%3Crect x='416' y='304' width='360' height='120' rx='14' fill='rgba(255,255,255,0.1)'/%3E%3C/svg%3E" style="width:100%; border-radius:16px; border:1px solid var(--border)"/>
-      <p class="hint" style="margin-top:10px">📈 كل شيء مصمم ليكون بسيط، واضح، وسريع التطبيق.</p>
+    <div class="price-chip">
+      <span>السعر</span><b>149 ر.س</b><small>شامل الضريبة</small>
     </div>
   </div>
 </header>
 
-<section class="section">
-  <div class="container">
-    <div class="features">
-      <div class="feature">
-        <h4>محتوى مُنتقى بعناية</h4>
-        <p>خلاصة شروحات + نماذج متكررة (49+ نموذج) مع ملفات PDF مختصرة للمذاكرة السريعة.</p>
-      </div>
-      <div class="feature">
-        <h4>خطط مذاكرة مرنة</h4>
-        <p>جداول 3/7/14 يومًا + خطة شهرية، تناسب المستعجل والمتمكّن.</p>
-      </div>
-      <div class="feature">
-        <h4>قياس التقدم</h4>
-        <p>فواصل مراجعة، أسئلة تحفيز، وأهداف درجة مستهدفة لضبط تركيزك.</p>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="grid grid-2">
-      <div class="card">
-        <h3 style="margin-top:0">ليش هالدورة مختلفة؟</h3>
-        <ul style="margin:0 0 0 18px; line-height:1.9">
-          <li>تبسيط المفاهيم + أمثلة مباشرة من واقع اختبار STEP.</li>
-          <li>تركيز على الأسئلة المكررة وأساليب الحل الأسرع.</li>
-          <li>تحديثات مستمرة حسب جديد المختبرين في كل المناطق.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3 style="margin-top:0">ضمان الشفافية</h3>
-        <p style="margin:.2rem 0 0">لا نعرض “إشعارات شراء حقيقية” تلقائية. التنبيه أدناه محاكاة توضيحية فقط لواجهة الإشعارات.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="enroll" class="section">
-  <div class="container grid grid-2">
+<div class="wrap">
+  <section class="hero">
+    <!-- تعريف + مميزات -->
     <div class="card">
-      <h3 style="margin-top:0">نموذج التسجيل السريع</h3>
-      <form class="form" onsubmit="return sendToTelegram(event)">
-        <div class="field">
-          <label for="fullname">الاسم الكامل</label>
-          <input id="fullname" required placeholder="مثال: نورة محمد العتيبي" />
+      <div class="pad">
+        <h2 class="title">جاهز تختصر الطريق؟</h2>
+        <p class="subtitle">محتوى مركّز + نماذج متكررة + خطة مذاكرة واضحة — كل شيء في صفحة واحدة.</p>
+
+        <div class="features">
+          <div class="feature"><b>محتوى قوي:</b> شروحات مركّزة ونماذج مُحدّثة بحسب نمط الاختبار.</div>
+          <div class="feature"><b>تحديثات مستمرة:</b> تحصل على التحديثات أولاً بأول مدى الحياة.</div>
+          <div class="feature"><b>خطط مذاكرة:</b> مسارات سريعة أو مكثفة بحسب وقتك ومستواك.</div>
+          <div class="feature"><b>دعم ذكي:</b> توجيه سريع + إجابات لأبرز الأسئلة المتكررة.</div>
         </div>
 
-        <div class="field">
-          <label for="exam-month">موعد اختبارك (شهر/سنة)</label>
-          <div style="display:flex; gap:8px">
-            <select id="exam-month" required>
-              <option value="" disabled selected>اختر الشهر</option>
-              <option>يناير</option><option>فبراير</option><option>مارس</option>
-              <option>أبريل</option><option>مايو</option><option>يونيو</option>
-              <option>يوليو</option><option>أغسطس</option><option>سبتمبر</option>
-              <option>أكتوبر</option><option>نوفمبر</option><option>ديسمبر</option>
-            </select>
-            <select id="exam-year" required>
-              <option value="" disabled selected>اختر السنة</option>
-            </select>
-          </div>
-          <div class="hint">لو ما حجزت بعد، اختر شهر متوقع.</div>
+        <div class="cta">
+          <a class="btn" href="#enroll">قدّم طلب الاشتراك</a>
+          <a class="btn ghost" href="index.html">الصفحة الرئيسية</a>
         </div>
-
-        <div class="field">
-          <label>درجة مستهدفة</label>
-          <div style="display:flex; flex-wrap:wrap; gap:8px">
-            <label><input type="radio" name="target" value="+60" required> +60</label>
-            <label><input type="radio" name="target" value="+75"> +75</label>
-            <label><input type="radio" name="target" value="+85"> +85</label>
-            <label><input type="radio" name="target" value="+90"> +90</label>
-          </div>
-        </div>
-
-        <div class="field">
-          <label>قنوات التواصل المفضلة</label>
-          <div style="display:flex; flex-wrap:wrap; gap:10px">
-            <label><input type="checkbox" value="Telegram" checked> تيليجرام</label>
-            <label><input type="checkbox" value="WhatsApp"> واتساب</label>
-            <label><input type="checkbox" value="Email"> البريد الإلكتروني</label>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="notes">ملاحظات/مستواك الحالي (اختياري)</label>
-          <textarea id="notes" placeholder="مثال: أول اختبار لي – أحتاج خطة مكثفة 7 أيام"></textarea>
-        </div>
-
-        <div class="field">
-          <button class="btn" type="submit">إرسال الطلب عبر تيليجرام</button>
-          <div class="hint">يُنشئ رسالة جاهزة إلى المنسّق مع كل تفاصيلك.</div>
-        </div>
-      </form>
+      </div>
     </div>
 
-    <div class="card">
-      <h3 style="margin-top:0">ماذا سيصلك بعد التأكيد؟</h3>
-      <ul style="margin:0 0 0 18px; line-height:1.9">
-        <li>وصول لقناتين: <b>أرشيف الدورة</b> + <b>ملفات النماذج مرتبة</b>.</li>
-        <li>خطة مذاكرة حسب وقتك (3/7/14 يومًا أو شهر كامل).</li>
-        <li>جميع ملفات ونماذج عايد مع شروحاتها حتى آخر نموذج (49+).</li>
-        <li>تحديثات مجانية مدى الحياة.</li>
-      </ul>
-      <div class="divider"></div>
-      <p class="hint">لو ما تقدر على المدفوع الآن، تصفّح المحتوى المجاني المرتّب: <a style="color:#5eead4" href="https://t.me/stepp2024/300">فهرس المحتوى المجاني</a></p>
-      <p class="hint">القناة الرسمية للأخبار والتحديثات: <a style="color:#5eead4" href="https://t.me/STEP_Academy100">@STEP_Academy100</a></p>
+    <!-- نموذج الاشتراك -->
+    <div id="enroll" class="card">
+      <div class="pad">
+        <h3 class="title" style="font-size:26px;margin-bottom:8px;">طلب اشتراك — خطوة أخيرة</h3>
+        <p class="subtitle" style="margin-bottom:18px;">عبّ البيانات التالية، وبضغطة واحدة بنرسلها تلقائياً للمنسق في تيليجرام.</p>
+
+        <form id="form">
+          <div class="grid">
+            <div>
+              <label for="name">الاسم الكامل</label>
+              <input id="name" type="text" placeholder="مثال: نورة عبدالله" required>
+            </div>
+            <div>
+              <label for="level">مستواك الحالي</label>
+              <select id="level" required>
+                <option value="" disabled selected>اختر مستوى تقريبي</option>
+                <option>مبتدئ</option>
+                <option>متوسط</option>
+                <option>متقدم</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div>
+              <label>سبب الاختبار</label>
+              <select id="reason" required>
+                <option value="" disabled selected>— اختر السبب —</option>
+                <option>تقديم جامعة</option>
+                <option>وظيفة/ترقية</option>
+                <option>ابتعاث</option>
+                <option>تحسين مستوى</option>
+                <option>أخرى</option>
+              </select>
+            </div>
+            <div>
+              <label>الدرجة المستهدفة</label>
+              <div id="targetBox" class="pills">
+                <span class="pill">50+</span>
+                <span class="pill">60+</span>
+                <span class="pill">70+</span>
+                <span class="pill">80+</span>
+                <span class="pill">90+</span>
+              </div>
+              <div class="hint">اختر هدفك، ونبني لك خطة مناسبة.</div>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div>
+              <label>موعد الاختبار (شهر/سنة)</label>
+              <div class="grid" style="grid-template-columns:1fr 1fr; gap:10px;">
+                <select id="month" required>
+                  <option value="" disabled selected>الشهر</option>
+                </select>
+                <select id="year" required>
+                  <option value="" disabled selected>السنة</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label>طريقة الدفع المفضلة</label>
+              <select id="pay" required>
+                <option value="" disabled selected>— اختر طريقة الدفع —</option>
+                <option>تحويل بنكي</option>
+                <option>STC Pay</option>
+                <option>نجوم تيليجرام</option>
+                <option>عملات رقمية (TON/USDT)</option>
+              </select>
+              <div class="hint">لا تقلق، تفاصيل التحويل تُرسل لك بعد التأكيد.</div>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div>
+              <label>وسيلة التواصل</label>
+              <select id="contactType" required>
+                <option value="" disabled selected>— اختر وسيلة التواصل —</option>
+                <option value="WhatsApp">واتساب</option>
+                <option value="Telegram">تيليجرام</option>
+                <option value="Email">البريد الإلكتروني</option>
+              </select>
+            </div>
+            <div>
+              <label id="contactLabel">المعرف / الرقم</label>
+              <input id="contactValue" type="text" placeholder="مثال: ‎@YourUser أو 05xxxxxxxx أو email@example.com" required>
+            </div>
+          </div>
+
+          <div style="margin-top:6px">
+            <label>ملاحظات إضافية (اختياري)</label>
+            <input id="notes" type="text" placeholder="أي تفاصيل نحتاج نعرفها قبل تجهيز اشتراكك؟">
+          </div>
+
+          <div class="cta" style="margin-top:16px">
+            <button type="submit" class="btn">إرسال الطلب الآن</button>
+            <button type="button" class="btn ghost" id="previewBtn">معاينة الرسالة</button>
+          </div>
+
+          <p class="hint" style="margin-top:10px">
+            بالضغط على “إرسال الطلب” سيتم فتح تيليجرام برسالة جاهزة للمنسّق تتضمن بياناتك. لا يتم سحب أي معلومات تلقائياً من جهازك.
+          </p>
+        </form>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer class="footer">
-  <div class="container">
-    <div class="hint">اللهم احفظ وطننا وقيادتنا، ووفّق أبناء وبنات الوطن لكل خير. عزّنا بطبعنا 🇸🇦</div>
-    <div style="margin-top:10px; opacity:.7">© الدورة الشاملة الحديثة — جميع الحقوق محفوظة</div>
-  </div>
-</footer>
+  <section class="card" style="margin-top:18px">
+    <div class="pad">
+      <h3 class="title" style="font-size:24px;margin-bottom:8px;">ليه هذه الدورة؟</h3>
+      <p class="subtitle">لأنها تتعامل مع الاختبار كـ “نمط” متكرر: تركز على الزبدة، وتقلّص الوقت، وتخليك تذاكر وأنت واثق.</p>
+      <div class="features">
+        <div class="feature"><b>تنظيم صارم:</b> فهرسة ذكية + تتبع تقدم.</div>
+        <div class="feature"><b>قابل للتكيّف:</b> خطط 3/7/14 يوم + خطة شهرية.</div>
+        <div class="feature"><b>شامل:</b> شروحات، ملفات، نماذج مكررة، أسئلة سريعة.</div>
+        <div class="feature"><b>قانوني وآمن:</b> اشتراك موحّد 149 ر.س (شامل الضريبة) مع تحديثات مدى الحياة.</div>
+      </div>
+    </div>
+  </section>
 
-<!-- إشعارات محاكاة (موضح أنها محاكاة) -->
-<div class="toast" aria-hidden="true">
-  <div class="notice"><span class="dot"></span> <b>مثال توضيحي:</b>&nbsp; تم تسجيل <b>عبدالرحمن</b> — <small>قبل لحظات</small></div>
-  <div class="notice"><span class="dot"></span> <b>مثال توضيحي:</b>&nbsp; تم تأكيد <b>نورة</b> — <small>قبل 2 دقيقة</small></div>
+  <footer>
+    © 2025 دورة STEP الشاملة الحديثة<span class="sep">•</span>نسخة تجريبية للواجهة — للاستخدام التعريفي
+  </footer>
 </div>
 
+<!-- إشعارات منبثقة -->
+<div class="toast" id="toasts"></div>
+
 <script>
-// تعبئة سنوات تلقائيًا
-(function fillYears(){
-  const y = document.getElementById('exam-year');
-  const now = new Date().getFullYear();
-  for(let i=0;i<4;i++){
-    const opt = document.createElement('option');
-    opt.textContent = (now + i).toString();
-    y.appendChild(opt);
-  }
-})();
+/* ===================== إعدادات سريعة قابلة للتعديل ===================== */
+const COORDINATOR = "Hilm_STEP1"; // ← عدّل اسم حساب المنسّق على تيليجرام
+const PRICE_TEXT  = "149 ر.س (شامل الضريبة)";
 
-// بناء رسالة تيليجرام وفتحها
-function sendToTelegram(e){
-  e.preventDefault();
-  const name = document.getElementById('fullname').value.trim();
-  const month = document.getElementById('exam-month').value;
-  const year  = document.getElementById('exam-year').value;
-  const target = (new FormData(e.target)).get('target');
+const DUMMY_NOTIFS = [
+  "انضمَّ <b>عبدالرحمن القحطاني</b> قبل قليل",
+  "تم تأكيد اشتراك <b>نورة العتيبي</b>",
+  "سجّل <b>مشعل العبدالله</b> — خطة 7 أيام",
+  "طلب اشتراك جديد من <b>ليان الحربي</b>",
+  "ترقية خطة <b>سارة القحطاني</b> إلى 90+"
+];
+
+/* ===================== مساعدات واجهة ===================== */
+const monthSel = document.getElementById('month');
+const yearSel  = document.getElementById('year');
+const now = new Date();
+const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+
+// تعبئة الأشهر (الشهر الحالي + 11)
+for(let i=0;i<12;i++){
+  const idx = (now.getMonth()+i)%12;
+  const opt = document.createElement('option');
+  opt.value = months[idx];
+  opt.textContent = months[idx];
+  monthSel.appendChild(opt);
+}
+// تعبئة السنوات (الحالي + 1)
+for(let y=0; y<2; y++){
+  const yr = now.getFullYear()+y;
+  const opt = document.createElement('option');
+  opt.value = yr; opt.textContent = yr;
+  yearSel.appendChild(opt);
+}
+
+// حبوب الدرجة
+const pills = Array.from(document.querySelectorAll('.pill'));
+let selectedTarget = "";
+pills.forEach(p=>{
+  p.addEventListener('click', ()=>{
+    pills.forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+    selectedTarget = p.textContent.trim();
+  });
+});
+
+// تحديث تسمية حقل التواصل
+const contactType = document.getElementById('contactType');
+const contactLabel= document.getElementById('contactLabel');
+contactType.addEventListener('change', ()=>{
+  const v = contactType.value;
+  if(v==="WhatsApp") contactLabel.textContent = "رقم الواتساب";
+  else if(v==="Telegram") contactLabel.textContent = "معرف تيليجرام";
+  else contactLabel.textContent = "البريد الإلكتروني";
+});
+
+/* ===================== بناء الرسالة ===================== */
+function buildMessage(preview=false){
+  const name  = document.getElementById('name').value.trim();
+  const level = document.getElementById('level').value;
+  const reason= document.getElementById('reason').value;
+  const month = document.getElementById('month').value;
+  const year  = document.getElementById('year').value;
+  const pay   = document.getElementById('pay').value;
+  const cType = document.getElementById('contactType').value;
+  const cVal  = document.getElementById('contactValue').value.trim();
   const notes = document.getElementById('notes').value.trim();
-  const channels = [...e.target.querySelectorAll('input[type="checkbox"]:checked')].map(c=>c.value).join(' / ');
 
-  const msg = `اشتراك STEP%0A%0A` +
-              `الاسم: ${encodeURIComponent(name)}%0A` +
-              `موعد الاختبار: ${encodeURIComponent(month + " " + year)}%0A` +
-              `الدرجة المستهدفة: ${encodeURIComponent(target)}%0A` +
-              `قنوات التواصل: ${encodeURIComponent(channels || "Telegram")}%0A` +
-              (notes? `ملاحظات: ${encodeURIComponent(notes)}%0A` : ``) +
-              `%0Aارسلوا لي خطوات الدفع لتأكيد الاشتراك (149 ر.س شامل الضريبة).`;
+  if(!name || !level || !reason || !month || !year || !pay || !cType || !cVal || !selectedTarget){
+    if(!preview) alert("فضلاً أكمل جميع الحقول واختر الدرجة المستهدفة.");
+    return null;
+  }
 
-  // رابط المنسّق
-  const tg = "https://t.me/Hilm_STEP1";
-  window.open(`${tg}?start=subscribe&text=${msg}`, "_blank");
-  return false;
+  const lines = [
+    "اشتراك STEP — الدورة الشاملة الحديثة",
+    "———————————————",
+    `الاسم: ${name}`,
+    `المستوى: ${level}`,
+    `السبب: ${reason}`,
+    `الدرجة المستهدفة: ${selectedTarget}`,
+    `موعد الاختبار: ${month} ${year}`,
+    `طريقة الدفع: ${pay}`,
+    `وسيلة التواصل: ${cType} — ${cVal}`,
+    notes? `ملاحظات: ${notes}` : "",
+    "———————————————",
+    `أقرّ برغبتي بالاشتراك بالسعر: ${PRICE_TEXT}`,
+  ].filter(Boolean);
+
+  return lines.join("\n");
+}
+
+/* ===================== إرسال إلى تيليجرام ===================== */
+document.getElementById('form').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const msg = buildMessage(false);
+  if(!msg) return;
+
+  const url = `https://t.me/${COORDINATOR}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+
+  confetti();
+});
+
+document.getElementById('previewBtn').addEventListener('click', ()=>{
+  const msg = buildMessage(true);
+  if(!msg) return;
+  alert(msg);
+});
+
+/* ===================== إشعارات منبثقة عشوائية ===================== */
+const toasts = document.getElementById('toasts');
+function pushToast(){
+  const el = document.createElement('div');
+  el.className = 'bubble';
+  el.innerHTML = `${DUMMY_NOTIFS[Math.floor(Math.random()*DUMMY_NOTIFS.length)]} • <small>قبل ثوانٍ</small>`;
+  toasts.appendChild(el);
+  setTimeout(()=>{ el.style.opacity=.0; el.style.transform="translateX(-12px)"; }, 4500);
+  setTimeout(()=>{ el.remove(); }, 5200);
+}
+setInterval(pushToast, 7000);
+setTimeout(pushToast, 1400);
+
+/* ===================== مؤثر بسيط عند الإرسال ===================== */
+function confetti(){
+  const n=24;
+  for(let i=0;i<n;i++){
+    const s = document.createElement('span');
+    const size = 6 + Math.random()*8;
+    s.style.cssText = `
+      position:fixed; z-index:60; left:${20+Math.random()*60}vw; top:10vh;
+      width:${size}px; height:${size}px; border-radius:50%;
+      background:${i%3? '#fcd34d' : '#34d399'};
+      transform:translateY(-20px); opacity:0; pointer-events:none;
+      transition:.8s ease;
+    `;
+    document.body.appendChild(s);
+    requestAnimationFrame(()=>{
+      s.style.transform = `translateY(${70+Math.random()*20}vh)`;
+      s.style.opacity = 1;
+    });
+    setTimeout(()=>s.remove(), 900);
+  }
 }
 </script>
 </body>
