@@ -358,7 +358,8 @@ function sendToTelegram(e){
 
   // رابط المنسّق
   const tg = "https://t.me/Hilm_STEP1";
-  window.open(`${tg}?start=subscribe&text=${msg}`, "_blank");
+  const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(tg)}&text=${msg}`;
+  window.open(shareUrl, "_blank");
   return false;
 }
 </script>
