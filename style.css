@@ -1,0 +1,307 @@
+/*
+ * تصميم بسيط لمنصة اختبار STEP
+ * تم استخدام خطوط بسيطة وألوان هادئة لراحة المستخدم
+ */
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f9fafc;
+    color: #333;
+    line-height: 1.6;
+}
+
+.site-header {
+    background-color: #004e7c;
+    color: #fff;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: opacity 0.3s;
+}
+
+.navbar .nav-links li a:hover {
+    opacity: 0.8;
+}
+
+/* Hero section */
+.hero {
+    /* خلفية بطبقتين: لون أساسي وتدرج شفاف لإبراز النص */
+    background: linear-gradient(rgba(0, 78, 124, 0.7), rgba(0, 78, 124, 0.7)),
+                url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 10 10"><rect width="10" height="10" fill="%23e0f1f8"/></svg>');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.cta {
+    background-color: #ff9800;
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.cta:hover {
+    background-color: #e08a00;
+}
+
+/* Sections */
+.section {
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.light-bg {
+    background-color: #ffffff;
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #004e7c;
+}
+
+.section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #004e7c;
+}
+
+.section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section ul li {
+    padding: 6px 0;
+    position: relative;
+    padding-right: 24px;
+}
+
+.section ul li::before {
+    content: '•';
+    position: absolute;
+    right: 0;
+    color: #ff9800;
+}
+
+/* Course modules */
+.course-modules {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.module {
+    background-color: #f1f7fb;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.module h3 {
+    margin-top: 0;
+}
+
+/* Pricing */
+.pricing-table {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.package-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    width: 280px;
+    text-align: center;
+    border-top: 4px solid #004e7c;
+}
+
+.package-card.premium {
+    border-top-color: #ff9800;
+}
+
+.package-card.vip {
+    border-top-color: #4caf50;
+}
+
+.package-card h3 {
+    margin-top: 0;
+    color: #004e7c;
+}
+
+.package-card .price {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #ff9800;
+}
+
+.package-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: right;
+}
+
+.package-card ul li {
+    margin: 5px 0;
+    padding-right: 20px;
+    position: relative;
+}
+
+.package-card ul li::before {
+    content: '\2714'; /* checkmark */
+    position: absolute;
+    right: 0;
+    color: #4caf50;
+}
+
+.note {
+    margin-top: 15px;
+    font-style: italic;
+    color: #555;
+    text-align: center;
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.invoice {
+    background-color: #f1f7fb;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.iban-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0 20px;
+    border: 1px solid #ddd;
+}
+
+.iban-box button.copy-btn {
+    background-color: #004e7c;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.iban-box button.copy-btn:hover {
+    background-color: #003b5c;
+}
+
+/* Footer */
+.site-footer {
+    background-color: #004e7c;
+    color: #fff;
+    text-align: center;
+    padding: 15px 20px;
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .navbar .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .pricing-table {
+        flex-direction: column;
+        align-items: center;
+    }
+    .package-card {
+        width: 90%;
+    }
+}
