@@ -523,7 +523,9 @@
   form.addEventListener('submit',(e)=>{
     e.preventDefault();
     const msg = encodeURIComponent(buildMessage());
-    window.open(`https://t.me/${TELEGRAM_HANDLE}?text=${msg}`, "_blank");
+    const contactLink = `https://t.me/${TELEGRAM_HANDLE}`;
+    const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(contactLink)}&text=${msg}`;
+    window.open(shareUrl, "_blank");
   });
 
   copyBtn.addEventListener('click', async ()=>{
