@@ -1,88 +1,128 @@
-/*
- * سكربت بسيط لحساب تكلفة الاشتراك وإدارة خطوات الدفع
- */
-
-// أسعار الباقات بالريال السعودي
+// بيانات الأسعار والخصومات
 const packagePrices = {
     basic: 300,
     premium: 450,
-    vip: 600
+    vip: 600,
 };
 
-// حساب السعر وعرض الفاتورة
+const courseNames = {
+    step: 'دورة STEP الشاملة',
+    qdrat: 'دورة القدرات العامة',
+    tahsili: 'دورة التحصيلي',
+    maaref: 'دورة القدرة المعرفية',
+    license: 'دورة الرخصة المهنية',
+};
+
+const paymentNames = {
+    bank: 'تحويل بنكي',
+    stars: 'نجوم تيليجرام (خصم 5٪)',
+};
+
+const bankData = {
+    bank: 'بنك الإنماء',
+    account: '68206067557000',
+    iban: 'SA4905000068206067557000',
+};
+
+function formatCurrency(value) {
+    return `${value.toFixed(2)} ريال`;
+}
+
 function calculatePrice() {
-    const typeEl = document.getElementById('subscription-type');
-    const qtyEl = document.getElementById('quantity');
-    const unitPriceEl = document.getElementById('unit-price');
-    const subtotalEl = document.getElementById('subtotal');
-    const discountInfoEl = document.getElementById('discount-info');
-    const totalPriceEl = document.getElementById('total-price');
-    const invoiceSection = document.getElementById('invoice-section');
+    const course = document.getElementById('course').value;
+    const packageType = document.getElementById('subscription-type').value;
+    const quantity = Math.min(Math.max(parseInt(document.getElementById('quantity').value) || 1, 1), 10);
+    const paymentMethod = document.getElementById('payment-method').value;
 
-    const type = typeEl.value;
-    const quantity = parseInt(qtyEl.value) || 1;
-    const pricePerUnit = packagePrices[type];
-    const subtotal = pricePerUnit * quantity;
+    const unitPrice = packagePrices[packageType];
+    const subtotal = unitPrice * quantity;
 
-    // determine discount based on number of participants
-    let discountRate = 0;
+    let groupDiscountRate = 0;
     if (quantity >= 3) {
-        discountRate = 0.15;
+        groupDiscountRate = 0.15;
     } else if (quantity === 2) {
-        discountRate = 0.10;
+        groupDiscountRate = 0.10;
     }
-    const discountAmount = subtotal * discountRate;
-    const total = subtotal - discountAmount;
+    const groupDiscountAmount = subtotal * groupDiscountRate;
 
-    // update invoice fields
-    unitPriceEl.textContent = pricePerUnit.toFixed(2) + ' ريال';
-    subtotalEl.textContent = subtotal.toFixed(2) + ' ريال';
-    discountInfoEl.textContent = discountRate > 0 ? (discountRate * 100) + '% خصم' : 'لا يوجد خصم';
-    totalPriceEl.textContent = total.toFixed(2) + ' ريال';
+    const starsDiscountRate = paymentMethod === 'stars' ? 0.05 : 0;
+    const starsDiscountAmount = (subtotal - groupDiscountAmount) * starsDiscountRate;
 
-    invoiceSection.style.display = 'block';
+    const total = subtotal - groupDiscountAmount - starsDiscountAmount;
+
+    // عرض القيم في الفاتورة
+    document.getElementById('selected-course').textContent = courseNames[course];
+    document.getElementById('selected-package').textContent = document.getElementById('subscription-type').selectedOptions[0].textContent;
+    document.getElementById('selected-payment').textContent = paymentNames[paymentMethod];
+    document.getElementById('unit-price').textContent = formatCurrency(unitPrice);
+    document.getElementById('subtotal').textContent = formatCurrency(subtotal);
+    document.getElementById('discount-info').textContent = groupDiscountRate > 0 ? `${(groupDiscountRate * 100).toFixed(0)}٪` : 'لا يوجد خصم جماعي';
+    document.getElementById('stars-discount').textContent = starsDiscountRate > 0 ? `${(starsDiscountRate * 100).toFixed(0)}٪` : 'لا يوجد';
+    document.getElementById('total-price').textContent = formatCurrency(total);
+
+    // إظهار الفاتورة وإخفاء الأقسام الأخرى
+    document.getElementById('invoice-section').style.display = 'block';
+    document.getElementById('bank-upload').style.display = 'none';
+    document.getElementById('stars-info').style.display = 'none';
+    document.getElementById('thankyou').style.display = 'none';
+
+    // تحديث حقل الكمية بالقيمة المصححة
+    document.getElementById('quantity').value = quantity;
 }
 
-// إظهار قسم الدفع وإخفاء نموذج الاشتراك
-function showPayment() {
-    const formSection = document.getElementById('subscription-form');
-    const invoiceSection = document.getElementById('invoice-section');
-    const paymentSection = document.getElementById('payment');
-    formSection.style.display = 'none';
-    invoiceSection.style.display = 'none';
-    paymentSection.style.display = 'block';
-    window.scrollTo({ top: paymentSection.offsetTop - 20, behavior: 'smooth' });
-}
-
-// نسخ الآيبان إلى الحافظة
-function copyIban() {
-    const ibanText = document.getElementById('iban').textContent.trim();
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(ibanText).then(() => {
-            alert('تم نسخ الآيبان إلى الحافظة.');
-        }).catch(() => {
-            alert('لم يتم النسخ، يرجى نسخ الآيبان يدوياً.');
-        });
-    } else {
-        // متصفح لا يدعم clipboard API
-        alert('يرجى نسخ رقم الآيبان يدوياً: ' + ibanText);
-    }
-}
-
-// إنهاء الاشتراك بعد رفع الإيصال
-function finishSubscription() {
-    const receiptEl = document.getElementById('receipt');
-    const paymentSection = document.getElementById('payment');
-    const thankYouSection = document.getElementById('thankyou');
-
-    // التحقق من إرفاق إيصال التحويل
-    if (!receiptEl.files || receiptEl.files.length === 0) {
-        alert('يرجى إرفاق صورة أو ملف إيصال التحويل.');
+function copyText(id) {
+    const text = document.getElementById(id).textContent.trim();
+    if (!navigator.clipboard) {
+        alert('يرجى نسخ الرقم يدويًا: ' + text);
         return;
     }
-
-    // إخفاء قسم الدفع وإظهار رسالة الشكر
-    paymentSection.style.display = 'none';
-    thankYouSection.style.display = 'block';
-    window.scrollTo({ top: thankYouSection.offsetTop - 20, behavior: 'smooth' });
+    navigator.clipboard.writeText(text).then(() => {
+        alert('تم النسخ بنجاح');
+    }).catch(() => alert('تعذر النسخ تلقائيًا، انسخ يدويًا.'));
 }
+
+function showBankUpload() {
+    document.getElementById('bank-upload').style.display = 'block';
+    document.getElementById('stars-info').style.display = 'none';
+    document.getElementById('thankyou').style.display = 'none';
+    scrollToSection('bank-upload');
+}
+
+function showStarsInfo() {
+    document.getElementById('stars-info').style.display = 'block';
+    document.getElementById('bank-upload').style.display = 'none';
+    document.getElementById('thankyou').style.display = 'none';
+    scrollToSection('stars-info');
+}
+
+function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) {
+        window.scrollTo({ top: el.offsetTop - 20, behavior: 'smooth' });
+    }
+}
+
+function finishSubscription(method) {
+    if (method === 'bank') {
+        const receiptEl = document.getElementById('receipt');
+        if (!receiptEl.files || receiptEl.files.length === 0) {
+            alert('يرجى إرفاق إيصال التحويل.');
+            return;
+        }
+    }
+    document.getElementById('thankyou').style.display = 'block';
+    document.getElementById('bank-upload').style.display = 'none';
+    document.getElementById('stars-info').style.display = 'none';
+    scrollToSection('thankyou');
+}
+
+// تعبئة بيانات البنك في الصفحة
+function populateBank() {
+    document.getElementById('bank-name').textContent = bankData.bank;
+    document.getElementById('account-number').textContent = bankData.account;
+    document.getElementById('iban').textContent = bankData.iban;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    populateBank();
+});
